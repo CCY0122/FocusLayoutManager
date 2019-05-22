@@ -1,13 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#d0d0d0">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DfDfDf"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff" />
+
+            <TextView
+                android:id="@+id/empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="50dp"
+                android:text="没有更多内容啦"
+                android:visibility="gone" />
+        </FrameLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff" />
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前焦点/上一个焦点 position ："
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_focus_pos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="堆叠数"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/layerCount"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/layerCount_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置"
+                android:onClick="layerCount_btn"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="堆叠view间距(dp)"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/layerPadding"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/layerPadding_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置"
+                android:onClick="layerPadding_btn"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="普通view间距(dp)"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/normalViewGap"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/normalViewGap_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置"
+                android:onClick="normalViewGap_btn"/>
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/ori_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/l"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="向左堆叠"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="向右堆叠" />
+
+            <RadioButton
+                android:id="@+id/t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="向上堆叠" />
+
+            <RadioButton
+                android:id="@+id/b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="向下堆叠" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/ori_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置堆叠方向"
+            android:onClick="orientation_btn"/>
+
+        <CheckBox
+            android:id="@+id/auto_select_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="是否自动选中焦点view"
+            android:checked="true"/>
+
+        <Button
+            android:id="@+id/change_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="换一种变化效果"
+            android:onClick="changeTrasition"/>
+
+
+    </LinearLayout>
+
+</ScrollView>
