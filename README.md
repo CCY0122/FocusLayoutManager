@@ -4,8 +4,19 @@
 
 
 ## 效果
+
+<br/> **截图:** <br/>
+
 <img src="https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/hor.jpg" width=700 />
 <img src="https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/ver.jpg" width=500 />
+
+<br/> **GIF:** <br/>
+![gif1](https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/gif_hor_2.gif)
+![gif2](https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/gif_ver.gif)
+
+<br/> **可以自己监听滚动并编写动画效果，如修改成仿MacOS文件浏览的动画:** <br/>
+<img src="https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/gif_mac_os.gif" width=660 />
+
 
 
 ## 依赖
@@ -52,12 +63,17 @@ recyclerView.setLayoutManager(focusLayoutManager);
 注意：因为item在不同区域随着滑动会有不同的缩放，所以实际layerPadding、normalViewGap也是经过缩放计算后的距离。
 
 #### 修改动画效果：
+```java
+//待补充
+```
 
-#### 高级监听：
+#### 自定义监听：
+```java
+//待补充
+```
 
-
-## 解析
-todo
+## 源码解析
+待补充
 
 
 
