@@ -14,7 +14,7 @@
 ![gif1](https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/gif_hor_2.gif)
 ![gif2](https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/gif_ver.gif)
 
-<br/> **可以自己监听滚动并编写动画效果，如修改成仿MacOS文件浏览的动画:** <br/>
+<br/> 可自己监听滚动编写效果，如修改成仿MacOS文件浏览: <br/>
 <img src="https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/gif_mac_os.gif" width=660 />
 
 
