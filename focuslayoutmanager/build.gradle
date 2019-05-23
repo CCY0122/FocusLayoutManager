@@ -1,5 +1,14 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.9.1'
+    }
+}
 android {
     compileSdkVersion 28
 
@@ -31,4 +40,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+}
+
+publish {
+    repoName = 'FocusLayoutManager'  // 此字段为你的仓库名称，默认为"maven"，上传的时候记得检查，否则上传会报错
+    userOrg = 'ccy01220122'
+    groupId = 'com.ccy'
+    artifactId = 'FocusLayoutManager'
+    publishVersion = '1.0.0'
+    desc = '具有有焦点item的水平/垂直滚动RecyclerView-LayoutManager'
+    website = 'https://github.com/CCY0122/FocusLayoutManager'
 }
