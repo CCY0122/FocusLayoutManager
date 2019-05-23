@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="当前焦点/上一个焦点 position ："
+            android:text="当前焦点/上一个焦点："
             android:textSize="16sp" />
 
         <TextView
@@ -140,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="向左堆叠"
-                android:checked="true"/>
+                android:checked="true" />
 
             <RadioButton
                 android:id="@+id/r"
@@ -168,12 +168,23 @@
             android:text="设置堆叠方向"
             android:onClick="orientation_btn"/>
 
-        <CheckBox
-            android:id="@+id/auto_select_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="是否自动选中焦点view"
-            android:checked="true"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/auto_select_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="是否自动选中焦点view"
+                android:checked="true"/>
+            <CheckBox
+                android:id="@+id/infinite_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="是否无限循环"
+                android:checked="false"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/change_btn"

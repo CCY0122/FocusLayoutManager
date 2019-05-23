@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
@@ -72,11 +73,11 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
     /**
      * 水平方向累计偏移量
      */
-    private int mHorizontalOffset;
+    private long mHorizontalOffset;
     /**
      * 垂直方向累计偏移量
      */
-    private int mVerticalOffset;
+    private long mVerticalOffset;
     /**
      * 屏幕可见的第一个View的Position
      */
@@ -259,7 +260,7 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
 
         //----------------2、初始化布局数据-----------------
 
-        float startX = getPaddingLeft();
+        float startX = getPaddingLeft() - layerPadding;
 
         View tempView = null;
         int tempPosition = -1;
@@ -282,7 +283,7 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         boolean isNormalViewOffsetSetted = false;
 
         //修正第一个可见的view：mFirstVisiPos。已经滑动了多少个完整的onceCompleteScrollLength就代表滑动了多少个item
-        mFirstVisiPos = Math.abs(mHorizontalOffset) / (int) onceCompleteScrollLength; //向下取整
+        mFirstVisiPos = (int) (Math.abs(mHorizontalOffset) / (int) onceCompleteScrollLength); //向下取整
         //临时将mLastVisiPos赋值为getItemCount() - 1，放心，下面遍历时会判断view是否已溢出屏幕，并及时修正该值并结束布局
         mLastVisiPos = getItemCount() - 1;
 
@@ -400,7 +401,7 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
 
         //----------------2、初始化布局数据-----------------
 
-        float startX = getWidth() - getPaddingRight();
+        float startX = getWidth() - getPaddingRight() + layerPadding;
 
         View tempView = null;
         int tempPosition = -1;
@@ -423,7 +424,7 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         boolean isNormalViewOffsetSetted = false;
 
         //修正第一个可见的view：mFirstVisiPos。已经滑动了多少个完整的onceCompleteScrollLength就代表滑动了多少个item
-        mFirstVisiPos = Math.abs(mHorizontalOffset) / (int) onceCompleteScrollLength; //向下取整
+        mFirstVisiPos = (int) (Math.abs(mHorizontalOffset) / (int) onceCompleteScrollLength); //向下取整
         //临时将mLastVisiPos赋值为getItemCount() - 1，放心，下面遍历时会判断view是否已溢出屏幕，并及时修正该值并结束布局
         mLastVisiPos = getItemCount() - 1;
 
@@ -539,7 +540,7 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
 
         //----------------2、初始化布局数据-----------------
 
-        float startY = getPaddingTop();
+        float startY = getPaddingTop() - layerPadding;
 
         View tempView = null;
         int tempPosition = -1;
@@ -562,7 +563,7 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         boolean isNormalViewOffsetSetted = false;
 
         //修正第一个可见的view：mFirstVisiPos。已经滑动了多少个完整的onceCompleteScrollLength就代表滑动了多少个item
-        mFirstVisiPos = Math.abs(mVerticalOffset) / (int) onceCompleteScrollLength; //向下取整
+        mFirstVisiPos = (int) (Math.abs(mVerticalOffset) / (int) onceCompleteScrollLength); //向下取整
         //临时将mLastVisiPos赋值为getItemCount() - 1，放心，下面遍历时会判断view是否已溢出屏幕，并及时修正该值并结束布局
         mLastVisiPos = getItemCount() - 1;
 
@@ -681,7 +682,7 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
 
         //----------------2、初始化布局数据-----------------
 
-        float startY = getHeight() - getPaddingBottom();
+        float startY = getHeight() - getPaddingBottom() + layerPadding;
 
         View tempView = null;
         int tempPosition = -1;
@@ -704,7 +705,7 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         boolean isNormalViewOffsetSetted = false;
 
         //修正第一个可见的view：mFirstVisiPos。已经滑动了多少个完整的onceCompleteScrollLength就代表滑动了多少个item
-        mFirstVisiPos = Math.abs(mVerticalOffset) / (int) onceCompleteScrollLength; //向下取整
+        mFirstVisiPos = (int) (Math.abs(mVerticalOffset) / (int) onceCompleteScrollLength); //向下取整
         //临时将mLastVisiPos赋值为getItemCount() - 1，放心，下面遍历时会判断view是否已溢出屏幕，并及时修正该值并结束布局
         mLastVisiPos = getItemCount() - 1;
 
@@ -789,6 +790,13 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         }
 
         return dy;
+    }
+
+    @Override
+    public void onAdapterChanged(@Nullable RecyclerView.Adapter oldAdapter,
+                                 @Nullable RecyclerView.Adapter newAdapter) {
+        resetData();
+        super.onAdapterChanged(oldAdapter, newAdapter);
     }
 
     @Override
@@ -1010,6 +1018,7 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         onceCompleteScrollLength = -1;
         mHorizontalOffset = 0;
         mVerticalOffset = 0;
+        focusdPosition = -1;
         cancelAnimator();
     }
 
