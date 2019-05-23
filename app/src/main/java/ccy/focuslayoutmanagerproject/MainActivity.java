@@ -31,6 +31,7 @@ import ccy.focuslayoutmanager.FocusLayoutManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static Toast mToast;
     View emptyView;
     TextView tvFocusedPos;
     CheckBox cbAutoSelect;
@@ -374,6 +375,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         int pos = getAdapterPosition();
+                        if (mToast == null) {
+                            mToast = Toast.makeText(MainActivity.this, "" + pos,
+                                    Toast.LENGTH_SHORT);
+                        }
+                        mToast.setText("" + pos);
+                        mToast.show();
+
                         if (pos == focusLayoutManager.getFocusdPosition()) {
 
                             Intent intent = new Intent(MainActivity.this, DetailActivity.class);
