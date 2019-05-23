@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         focusLayoutManager =
                 new FocusLayoutManager.Builder()
                         .layerPadding(dp2px(this, 14))
-                        .normalViewGap(dp2px(this, 16))
+                        .normalViewGap(dp2px(this, 14))
                         .focusOrientation(FocusLayoutManager.FOCUS_LEFT)
                         .isAutoSelect(true)
                         .maxLayerCount(3)

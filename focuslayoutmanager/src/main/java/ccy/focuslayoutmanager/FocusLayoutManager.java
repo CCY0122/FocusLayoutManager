@@ -164,7 +164,6 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
 
         mHorizontalOffset += dx;//累加实际滑动距离
 
-        log("mHorizontalOffset = " + mHorizontalOffset);
 
         dx = fill(recycler, state, dx);
 
@@ -283,9 +282,11 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         boolean isNormalViewOffsetSetted = false;
 
         //修正第一个可见的view：mFirstVisiPos。已经滑动了多少个完整的onceCompleteScrollLength就代表滑动了多少个item
-        mFirstVisiPos = (int) (Math.abs(mHorizontalOffset) / (int) onceCompleteScrollLength); //向下取整
+        mFirstVisiPos = (int) Math.floor(Math.abs(mHorizontalOffset) / onceCompleteScrollLength); //向下取整
         //临时将mLastVisiPos赋值为getItemCount() - 1，放心，下面遍历时会判断view是否已溢出屏幕，并及时修正该值并结束布局
         mLastVisiPos = getItemCount() - 1;
+
+//        log("fill.fraction = " + fraction + ";offset = " + mHorizontalOffset + ";mfirstPos = " + mFirstVisiPos);
 
 
         int newFocusedPosition = mFirstVisiPos + maxLayerCount - 1;
@@ -424,7 +425,7 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         boolean isNormalViewOffsetSetted = false;
 
         //修正第一个可见的view：mFirstVisiPos。已经滑动了多少个完整的onceCompleteScrollLength就代表滑动了多少个item
-        mFirstVisiPos = (int) (Math.abs(mHorizontalOffset) / (int) onceCompleteScrollLength); //向下取整
+        mFirstVisiPos = (int) Math.floor(Math.abs(mHorizontalOffset) / onceCompleteScrollLength); //向下取整
         //临时将mLastVisiPos赋值为getItemCount() - 1，放心，下面遍历时会判断view是否已溢出屏幕，并及时修正该值并结束布局
         mLastVisiPos = getItemCount() - 1;
 
@@ -563,7 +564,8 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         boolean isNormalViewOffsetSetted = false;
 
         //修正第一个可见的view：mFirstVisiPos。已经滑动了多少个完整的onceCompleteScrollLength就代表滑动了多少个item
-        mFirstVisiPos = (int) (Math.abs(mVerticalOffset) / (int) onceCompleteScrollLength); //向下取整
+        mFirstVisiPos = (int) Math.floor(Math.abs(mVerticalOffset) / onceCompleteScrollLength);
+        //向下取整
         //临时将mLastVisiPos赋值为getItemCount() - 1，放心，下面遍历时会判断view是否已溢出屏幕，并及时修正该值并结束布局
         mLastVisiPos = getItemCount() - 1;
 
@@ -705,7 +707,8 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         boolean isNormalViewOffsetSetted = false;
 
         //修正第一个可见的view：mFirstVisiPos。已经滑动了多少个完整的onceCompleteScrollLength就代表滑动了多少个item
-        mFirstVisiPos = (int) (Math.abs(mVerticalOffset) / (int) onceCompleteScrollLength); //向下取整
+        mFirstVisiPos = (int) Math.floor(Math.abs(mVerticalOffset) / onceCompleteScrollLength);
+        //向下取整
         //临时将mLastVisiPos赋值为getItemCount() - 1，放心，下面遍历时会判断view是否已溢出屏幕，并及时修正该值并结束布局
         mLastVisiPos = getItemCount() - 1;
 
@@ -939,7 +942,12 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
     private void startValueAnimator(int position) {
         cancelAnimator();
 
-        float distance = getScrollToPositionOffset(position);
+        final float distance = getScrollToPositionOffset(position);
+//        log("onceLength = " + onceCompleteScrollLength);
+//        log("curoffset = " + mHorizontalOffset + ";distance = " + distance + ";endOffset = " + (mHorizontalOffset + distance));
+//        log("currentpos = " + ((int) (Math.abs(mHorizontalOffset) / (int) onceCompleteScrollLength)) + ";end pos = " + ((mHorizontalOffset + distance) % onceCompleteScrollLength));
+//        log("current fra = " + ((Math.abs(mHorizontalOffset) % onceCompleteScrollLength) / (onceCompleteScrollLength * 1.0f)) + ";end fra = " + (Math.abs(mHorizontalOffset + distance) % onceCompleteScrollLength) / (onceCompleteScrollLength * 1.0f));
+
         long minDuration = 100;
         long maxDuration = 250;
         //除非手动调用smoothScrollToPosition，正常情况下只会选中上一个或下一个，即最大需要位移距离为一半的onceCompleteScrollLength
@@ -961,11 +969,22 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 if (focusOrientation == FOCUS_LEFT || focusOrientation == FOCUS_RIGHT) {
-                    mHorizontalOffset =
-                            (int) (startedOffset + (float) animation.getAnimatedValue());
+                    if (mHorizontalOffset < 0) {
+                        mHorizontalOffset =
+                                (long) Math.floor(startedOffset + (float) animation.getAnimatedValue());
+                    } else {
+                        mHorizontalOffset =
+                                (long) Math.ceil(startedOffset + (float) animation.getAnimatedValue());
+                    }
                     requestLayout();
                 } else if (focusOrientation == FOCUS_TOP || focusOrientation == FOCUS_BOTTOM) {
-                    mVerticalOffset = (int) (startedOffset + (float) animation.getAnimatedValue());
+                    if (mVerticalOffset < 0) {
+                        mVerticalOffset =
+                                (long) Math.floor(startedOffset + (float) animation.getAnimatedValue());
+                    } else {
+                        mVerticalOffset =
+                                (long) Math.ceil(startedOffset + (float) animation.getAnimatedValue());
+                    }
                     requestLayout();
                 }
 

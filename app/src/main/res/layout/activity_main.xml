@@ -17,7 +17,7 @@
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff" />
+                android:background="#f8f8f8"/>
 
             <TextView
                 android:id="@+id/empty"

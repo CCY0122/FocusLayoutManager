@@ -5,7 +5,7 @@
     android:layout_height="150dp"
     app:cardBackgroundColor="#ffffff"
     app:cardCornerRadius="2dp"
-    app:cardElevation="4dp"
+    app:cardElevation="5dp"
     android:transitionName="img">
 
     <FrameLayout
