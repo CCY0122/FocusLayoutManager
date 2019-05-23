@@ -1333,13 +1333,13 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         /**
          * 返回一个百分比值，相对于"一次完整的聚焦滑动"期间，在该百分比值内view就完成缩放、透明度的渐变变化。
          * 例：若返回值为1，说明在"一次完整的聚焦滑动"期间view将线性均匀完成缩放、透明度变化；
-         * 例：若返回值为0.5，说明在"一次完整的聚焦滑动"的一半路程内（具体从什么时候开始变不固定），view将完成的缩放、透明度变化
+         * 例：若返回值为0.5，说明在"一次完整的聚焦滑动"的一半路程内（具体从什么时候开始变由实际逻辑自己决定），view将完成的缩放、透明度变化
          *
          * @return
          */
         @FloatRange(from = 0.0f, to = 1.0f)
         public float getLayerChangeRangePercent() {
-            return 0.25f;
+            return 0.35f;
         }
 
         /**
