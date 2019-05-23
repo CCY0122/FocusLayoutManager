@@ -46,9 +46,9 @@ api 'com.ccy:FocusLayoutManager:1.0.0'
                         .build();
 recyclerView.setLayoutManager(focusLayoutManager);
 ```
-各属性意义见图：
+各属性意义见图：<br/>
 <img src="https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/detail.png" width=600 />
-
+<br/>
 注意：因为item在不同区域随着滑动会有不同的缩放，所以实际layerPadding、normalViewGap也是经过缩放计算后的距离。
 
 #### 修改动画效果：
