@@ -4,8 +4,8 @@
 
 
 ## 效果
-
-
+<img src="https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/hor.jpg" width=700 />
+<img src="https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/ver.jpg" width=500 />
 
 
 ## 依赖
@@ -47,7 +47,7 @@ api 'com.ccy:FocusLayoutManager:1.0.0'
 recyclerView.setLayoutManager(focusLayoutManager);
 ```
 各属性意义见图：
-//todo
+<img src="https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/detail.png" width=600 />
 
 注意：因为item在不同区域随着滑动会有不同的缩放，所以实际layerPadding、normalViewGap也是经过缩放计算后的距离。
 
