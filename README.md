@@ -27,6 +27,8 @@ api 'com.ccy:FocusLayoutManager:1.0.0'
 ```
 
 ## 使用
+
+
 ```java
  focusLayoutManager =
                 new FocusLayoutManager.Builder()
@@ -48,6 +50,10 @@ recyclerView.setLayoutManager(focusLayoutManager);
 //todo
 
 注意：因为item在不同区域随着滑动会有不同的缩放，所以实际layerPadding、normalViewGap也是经过缩放计算后的距离。
+
+#### 修改动画效果：
+
+#### 高级监听：
 
 
 ## 解析
