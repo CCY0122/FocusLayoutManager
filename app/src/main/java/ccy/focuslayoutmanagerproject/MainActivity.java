@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     int colors[] = {0xffff0000, 0xff00ff00, 0xff0000ff, 0xffffff00, 0xff00ffff, 0xffff00ff,
             0xffd0d0d0, 0xff000000, 0xffe04900, 0xff900909};
     int horRes[] = {R.drawable.h5, R.drawable.h6, R.drawable.h7, R.drawable.h1, R.drawable.h2,
+            R.drawable.h3, R.drawable.h4, R.drawable.h5, R.drawable.h6, R.drawable.h7,R.drawable.h5, R.drawable.h6, R.drawable.h7, R.drawable.h1, R.drawable.h2,
             R.drawable.h3, R.drawable.h4, R.drawable.h5, R.drawable.h6, R.drawable.h7};
     int verRes[] = {R.drawable.v5, R.drawable.v6, R.drawable.v7, R.drawable.v1, R.drawable.v2,
             R.drawable.v3, R.drawable.v4, R.drawable.v5, R.drawable.v6, R.drawable.v7};
@@ -286,15 +287,15 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.t) {
             focusLayoutManager.setFocusOrientation(FocusLayoutManager.FOCUS_TOP);
             ViewGroup.LayoutParams p = recyclerView.getLayoutParams();
-            p.width = RecyclerView.LayoutParams.MATCH_PARENT;
-            p.height = (int) dp2px(this, 340);
+            p.width = RecyclerView.LayoutParams.WRAP_CONTENT;
+            p.height = (int) dp2px(this, 480);
             recyclerView.setAdapter(new Adapter(datas = getDatas(true)));
         }
         if (id == R.id.b) {
             focusLayoutManager.setFocusOrientation(FocusLayoutManager.FOCUS_BOTTOM);
             ViewGroup.LayoutParams p = recyclerView.getLayoutParams();
-            p.width = RecyclerView.LayoutParams.MATCH_PARENT;
-            p.height = (int) dp2px(this, 340);
+            p.width = RecyclerView.LayoutParams.WRAP_CONTENT;
+            p.height = (int) dp2px(this, 480);
             recyclerView.setAdapter(new Adapter(datas = getDatas(true)));
         }
     }
