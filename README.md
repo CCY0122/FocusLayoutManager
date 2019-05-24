@@ -62,7 +62,7 @@ recyclerView.setLayoutManager(focusLayoutManager);
 <br/>
 注意：因为item在不同区域随着滑动会有不同的缩放，所以实际layerPadding、normalViewGap也是经过缩放计算后的距离。
 
-#### 修改动画效果：
+#### 调整动画效果：
 ```java
                 new FocusLayoutManager.Builder()
                         ......
@@ -88,7 +88,7 @@ recyclerView.setLayoutManager(focusLayoutManager);
                         .build();
 ```
 
-#### 自定义监听：
+#### 自定义动画/监听：
 如果你想在滑动时不仅仅改变item的大小、透明度，你有更多的想法，可以监听TrasitionListener,该监听暴露了很多关键布局数据，
 ```java
             ......
