@@ -47,7 +47,7 @@ publish {
     userOrg = 'ccy01220122'
     groupId = 'com.ccy'
     artifactId = 'FocusLayoutManager'
-    publishVersion = '1.0.0'
+    publishVersion = '1.0.1'
     desc = '具有有焦点item的水平/垂直滚动RecyclerView-LayoutManager'
     website = 'https://github.com/CCY0122/FocusLayoutManager'
 }
