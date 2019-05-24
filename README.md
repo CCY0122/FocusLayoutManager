@@ -1,4 +1,4 @@
-[ ![Download](https://api.bintray.com/packages/ccy01220122/FocusLayoutManager/FocusLayoutManager/images/download.svg?version=1.0.0) ](https://bintray.com/ccy01220122/FocusLayoutManager/FocusLayoutManager/1.0.0/link)
+[ ![Download](https://api.bintray.com/packages/ccy01220122/FocusLayoutManager/FocusLayoutManager/images/download.svg?version=1.0.1) ](https://bintray.com/ccy01220122/FocusLayoutManager/FocusLayoutManager/1.0.1/link)
 # FocusLayoutManager
 有焦点item的水平/垂直滚动RecyclerView-LayoutManager。仿Android豆瓣书影音“推荐“频道列表布局
 
@@ -21,19 +21,8 @@
 
 ## 依赖
 
-1、根build.gradle:
 ```
-allprojects {
-    repositories {
-        .....
-        //add this
-        maven { url 'https://dl.bintray.com/ccy01220122/FocusLayoutManager' }
-    }
-}
-```
-2、项目中:
-```
-api 'com.ccy:FocusLayoutManager:1.0.0'
+api 'com.ccy:FocusLayoutManager:1.0.1'
 // （or implementation）
 ```
 
@@ -66,7 +55,7 @@ recyclerView.setLayoutManager(focusLayoutManager);
 ```java
                 new FocusLayoutManager.Builder()
                         ......
-                        .simpleTrasitionListener(new FocusLayoutManager.SimpleTrasitionListener() {
+                        .setSimpleTrasitionListener(new FocusLayoutManager.SimpleTrasitionListener() {
                              @Override
                             public float getLayerViewMaxAlpha(int maxLayerCount) {
                                 return super.getLayerViewMaxAlpha(maxLayerCount);
@@ -91,8 +80,10 @@ recyclerView.setLayoutManager(focusLayoutManager);
 #### 自定义动画/滚动监听：
 如果你想在滑动时不仅仅改变item的大小、透明度，你有更多的想法，可以监听TrasitionListener,该监听暴露了很多关键布局数据，
 ```java
+
             ......
-            .trasitionListener(new FocusLayoutManager.TrasitionListener() {
+            .setSimpleTrasitionListener(null) //如果默认动画不想要，移除之。or use removeTrasitionlistener(XXX) 
+            .addTrasitionListener(new FocusLayoutManager.TrasitionListener() {
                             @Override
                             public void handleLayerView(FocusLayoutManager focusLayoutManager,
                                                         View view, int viewLayer,
@@ -115,7 +106,7 @@ recyclerView.setLayoutManager(focusLayoutManager);
                         })
 ```
 各参数意义见接口注释。
-实际上`SimpleTrasitionListener`内部就会被转为`TrasitionListener`(SimpleTrasitionListener没有getter方法）。可参考转换类是怎么做的：`TrasitionListenerConvert`
+实际上`SimpleTrasitionListener`内部就会被转为`TrasitionListener`。可参考转换类是怎么做的：`TrasitionListenerConvert`
 
 ## 源码解析
 待补充
