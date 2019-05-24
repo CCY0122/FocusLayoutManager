@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntDef;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.view.animation.LinearInterpolator;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,7 +67,7 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
     /**
      * 变换监听接口。
      */
-    private TrasitionListener trasitionListener;
+    private List<TrasitionListener> trasitionListeners;
     /**
      *
      */
@@ -98,6 +100,8 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
      * 自动选中动画
      */
     private ValueAnimator selectAnimator;
+    private long autoSelectMinDuration;
+    private long autoSelectMaxDuration;
 
 
     @IntDef({FOCUS_LEFT, FOCUS_RIGHT, FOCUS_TOP, FOCUS_BOTTOM})
@@ -114,10 +118,12 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         this.maxLayerCount = builder.maxLayerCount;
         this.focusOrientation = builder.focusOrientation;
         this.layerPadding = builder.layerPadding;
-        this.trasitionListener = builder.trasitionListener;
+        this.trasitionListeners = builder.trasitionListeners;
         this.normalViewGap = builder.normalViewGap;
         this.isAutoSelect = builder.isAutoSelect;
         this.onFocusChangeListener = builder.onFocusChangeListener;
+        this.autoSelectMinDuration = builder.autoSelectMinDuration;
+        this.autoSelectMaxDuration = builder.autoSelectMaxDuration;
     }
 
 
@@ -286,7 +292,8 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         //临时将mLastVisiPos赋值为getItemCount() - 1，放心，下面遍历时会判断view是否已溢出屏幕，并及时修正该值并结束布局
         mLastVisiPos = getItemCount() - 1;
 
-//        log("fill.fraction = " + fraction + ";offset = " + mHorizontalOffset + ";mfirstPos = " + mFirstVisiPos);
+//        log("fill.fraction = " + fraction + ";offset = " + mHorizontalOffset + ";mfirstPos = "
+// + mFirstVisiPos);
 
 
         int newFocusedPosition = mFirstVisiPos + maxLayerCount - 1;
@@ -320,9 +327,11 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
                     isLayerViewOffsetSetted = true;
                 }
 
-                if (trasitionListener != null) {
-                    trasitionListener.handleLayerView(this, item, i - mFirstVisiPos,
-                            maxLayerCount, i, fraction, dx);
+                if (trasitionListeners != null && !trasitionListeners.isEmpty()) {
+                    for (TrasitionListener trasitionListener : trasitionListeners) {
+                        trasitionListener.handleLayerView(this, item, i - mFirstVisiPos,
+                                maxLayerCount, i, fraction, dx);
+                    }
                 }
 
                 int l, t, r, b;
@@ -346,11 +355,13 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
                     isNormalViewOffsetSetted = true;
                 }
 
-                if (trasitionListener != null) {
-                    if (i - mFirstVisiPos == maxLayerCount) {
-                        trasitionListener.handleFocusingView(this, item, i, fraction, dx);
-                    } else {
-                        trasitionListener.handleNormalView(this, item, i, fraction, dx);
+                if (trasitionListeners != null && !trasitionListeners.isEmpty()) {
+                    for (TrasitionListener trasitionListener : trasitionListeners) {
+                        if (i - mFirstVisiPos == maxLayerCount) {
+                            trasitionListener.handleFocusingView(this, item, i, fraction, dx);
+                        } else {
+                            trasitionListener.handleNormalView(this, item, i, fraction, dx);
+                        }
                     }
                 }
 
@@ -461,9 +472,11 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
                     isLayerViewOffsetSetted = true;
                 }
 
-                if (trasitionListener != null) {
-                    trasitionListener.handleLayerView(this, item, i - mFirstVisiPos,
-                            maxLayerCount, i, fraction, dx);
+                if (trasitionListeners != null && !trasitionListeners.isEmpty()) {
+                    for (TrasitionListener trasitionListener : trasitionListeners) {
+                        trasitionListener.handleLayerView(this, item, i - mFirstVisiPos,
+                                maxLayerCount, i, fraction, dx);
+                    }
                 }
 
                 int l, t, r, b;
@@ -486,11 +499,13 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
                     isNormalViewOffsetSetted = true;
                 }
 
-                if (trasitionListener != null) {
-                    if (i - mFirstVisiPos == maxLayerCount) {
-                        trasitionListener.handleFocusingView(this, item, i, fraction, dx);
-                    } else {
-                        trasitionListener.handleNormalView(this, item, i, fraction, dx);
+                if (trasitionListeners != null && !trasitionListeners.isEmpty()) {
+                    for (TrasitionListener trasitionListener : trasitionListeners) {
+                        if (i - mFirstVisiPos == maxLayerCount) {
+                            trasitionListener.handleFocusingView(this, item, i, fraction, dx);
+                        } else {
+                            trasitionListener.handleNormalView(this, item, i, fraction, dx);
+                        }
                     }
                 }
 
@@ -601,9 +616,11 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
                     isLayerViewOffsetSetted = true;
                 }
 
-                if (trasitionListener != null) {
-                    trasitionListener.handleLayerView(this, item, i - mFirstVisiPos,
-                            maxLayerCount, i, fraction, dy);
+                if (trasitionListeners != null && !trasitionListeners.isEmpty()) {
+                    for (TrasitionListener trasitionListener : trasitionListeners) {
+                        trasitionListener.handleLayerView(this, item, i - mFirstVisiPos,
+                                maxLayerCount, i, fraction, dy);
+                    }
                 }
 
                 int l, t, r, b;
@@ -626,11 +643,14 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
                     isNormalViewOffsetSetted = true;
                 }
 
-                if (trasitionListener != null) {
-                    if (i - mFirstVisiPos == maxLayerCount) {
-                        trasitionListener.handleFocusingView(this, item, i, fraction, dy);
-                    } else {
-                        trasitionListener.handleNormalView(this, item, i, fraction, dy);
+
+                if (trasitionListeners != null && !trasitionListeners.isEmpty()) {
+                    for (TrasitionListener trasitionListener : trasitionListeners) {
+                        if (i - mFirstVisiPos == maxLayerCount) {
+                            trasitionListener.handleFocusingView(this, item, i, fraction, dy);
+                        } else {
+                            trasitionListener.handleNormalView(this, item, i, fraction, dy);
+                        }
                     }
                 }
 
@@ -744,9 +764,11 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
                     isLayerViewOffsetSetted = true;
                 }
 
-                if (trasitionListener != null) {
-                    trasitionListener.handleLayerView(this, item, i - mFirstVisiPos,
-                            maxLayerCount, i, fraction, dy);
+                if (trasitionListeners != null && !trasitionListeners.isEmpty()) {
+                    for (TrasitionListener trasitionListener : trasitionListeners) {
+                        trasitionListener.handleLayerView(this, item, i - mFirstVisiPos,
+                                maxLayerCount, i, fraction, dy);
+                    }
                 }
 
                 int l, t, r, b;
@@ -769,11 +791,13 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
                     isNormalViewOffsetSetted = true;
                 }
 
-                if (trasitionListener != null) {
-                    if (i - mFirstVisiPos == maxLayerCount) {
-                        trasitionListener.handleFocusingView(this, item, i, fraction, dy);
-                    } else {
-                        trasitionListener.handleNormalView(this, item, i, fraction, dy);
+                if (trasitionListeners != null && !trasitionListeners.isEmpty()) {
+                    for (TrasitionListener trasitionListener : trasitionListeners) {
+                        if (i - mFirstVisiPos == maxLayerCount) {
+                            trasitionListener.handleFocusingView(this, item, i, fraction, dy);
+                        } else {
+                            trasitionListener.handleNormalView(this, item, i, fraction, dy);
+                        }
                     }
                 }
 
@@ -944,19 +968,24 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
 
         final float distance = getScrollToPositionOffset(position);
 //        log("onceLength = " + onceCompleteScrollLength);
-//        log("curoffset = " + mHorizontalOffset + ";distance = " + distance + ";endOffset = " + (mHorizontalOffset + distance));
-//        log("currentpos = " + ((int) (Math.abs(mHorizontalOffset) / (int) onceCompleteScrollLength)) + ";end pos = " + ((mHorizontalOffset + distance) % onceCompleteScrollLength));
-//        log("current fra = " + ((Math.abs(mHorizontalOffset) % onceCompleteScrollLength) / (onceCompleteScrollLength * 1.0f)) + ";end fra = " + (Math.abs(mHorizontalOffset + distance) % onceCompleteScrollLength) / (onceCompleteScrollLength * 1.0f));
+//        log("curoffset = " + mHorizontalOffset + ";distance = " + distance + ";endOffset = " +
+// (mHorizontalOffset + distance));
+//        log("currentpos = " + ((int) (Math.abs(mHorizontalOffset) / (int)
+// onceCompleteScrollLength)) + ";end pos = " + ((mHorizontalOffset + distance) %
+// onceCompleteScrollLength));
+//        log("current fra = " + ((Math.abs(mHorizontalOffset) % onceCompleteScrollLength) /
+// (onceCompleteScrollLength * 1.0f)) + ";end fra = " + (Math.abs(mHorizontalOffset + distance) %
+// onceCompleteScrollLength) / (onceCompleteScrollLength * 1.0f));
 
-        long minDuration = 100;
-        long maxDuration = 250;
-        //除非手动调用smoothScrollToPosition，正常情况下只会选中上一个或下一个，即最大需要位移距离为一半的onceCompleteScrollLength
-        float distanceFraction = (Math.abs(distance) / (onceCompleteScrollLength / 2.0f));
-        //大于1，说明是跨多个position的选中
-        if (distanceFraction > 1) {
-            distanceFraction = 1;
+        long minDuration = autoSelectMinDuration;
+        long maxDuration = autoSelectMaxDuration;
+        long duration;
+        float distanceFraction = (Math.abs(distance) / (onceCompleteScrollLength));
+        if (distance <= onceCompleteScrollLength) {
+            duration = (long) (minDuration + (maxDuration - minDuration) * distanceFraction);
+        } else {
+            duration = (long) (maxDuration * distanceFraction);
         }
-        long duration = (long) (minDuration + (maxDuration - minDuration) * distanceFraction);
 
         selectAnimator = ValueAnimator.ofFloat(0.0f, distance);
         selectAnimator.setDuration(duration);
@@ -1114,19 +1143,28 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         requestLayout();
     }
 
-    public TrasitionListener getTrasitionListener() {
-        return trasitionListener;
+    public List<TrasitionListener> getTrasitionListeners() {
+        return trasitionListeners;
     }
 
-    public void setTrasitionListener(TrasitionListener trasitionListener) {
-        this.trasitionListener = trasitionListener;
+    public void addTrasitionListener(TrasitionListener trasitionListener) {
+        this.trasitionListeners.add(trasitionListener);
         requestLayout();
     }
 
-    public void setSimpleTrasitionListener(SimpleTrasitionListener simpleTrasitionListener) {
-        this.trasitionListener = new TrasitionListenerConvert(simpleTrasitionListener);
-        requestLayout();
+    /**
+     * @param trasitionListener if null,remove all
+     * @return
+     */
+    public boolean removeTrasitionlistener(TrasitionListener trasitionListener) {
+        if (trasitionListener != null) {
+            return trasitionListeners.remove(trasitionListener);
+        } else {
+            trasitionListeners.clear();
+            return true;
+        }
     }
+
 
     public OnFocusChangeListener getOnFocusChangeListener() {
         return onFocusChangeListener;
@@ -1146,8 +1184,11 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
         private float layerPadding;
         private float normalViewGap;
         private boolean isAutoSelect;
-        private TrasitionListener trasitionListener;
+        private List<TrasitionListener> trasitionListeners;
         private OnFocusChangeListener onFocusChangeListener;
+        private long autoSelectMinDuration;
+        private long autoSelectMaxDuration;
+        private TrasitionListener defaultTrasitionListener;
 
 
         public Builder() {
@@ -1156,9 +1197,13 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
             layerPadding = 60;
             normalViewGap = 60;
             isAutoSelect = true;
-            trasitionListener = new TrasitionListenerConvert(new SimpleTrasitionListener() {
+            trasitionListeners = new ArrayList<>();
+            defaultTrasitionListener = new TrasitionListenerConvert(new SimpleTrasitionListener() {
             });
+            trasitionListeners.add(defaultTrasitionListener);
             onFocusChangeListener = null;
+            autoSelectMinDuration = 100;
+            autoSelectMaxDuration = 300;
         }
 
         /**
@@ -1216,28 +1261,42 @@ public class FocusLayoutManager extends RecyclerView.LayoutManager {
             return this;
         }
 
-        /**
-         * 高级定制 滚动过程中view的变换监听接口
-         *
-         * @param trasitionListener
-         * @return
-         */
-        public Builder trasitionListener(TrasitionListener trasitionListener) {
-            this.trasitionListener = trasitionListener;
+        public Builder autoSelectDuration(@IntRange(from = 0) long minDuration, @IntRange(from =
+                0) long maxDuration) {
+            if (minDuration < 0 || maxDuration < 0 || maxDuration < minDuration) {
+                throw new RuntimeException("autoSelectDuration入参不合法");
+            }
+            this.autoSelectMinDuration = minDuration;
+            this.autoSelectMaxDuration = maxDuration;
             return this;
         }
 
         /**
-         * 简化版 滚动过程中view的变换监听接口。实际会被转换为{@link TrasitionListener}.优先级低于直接设置TrasitionListener
+         * 高级定制 添加滚动过程中view的变换监听接口
          *
-         * @param simpleTrasitionListener
+         * @param trasitionListener
          * @return
          */
-        public Builder simpleTrasitionListener(SimpleTrasitionListener simpleTrasitionListener) {
+        public Builder addTrasitionListener(TrasitionListener trasitionListener) {
             if (trasitionListener != null) {
-                Log.e(TAG, "警告：设置SimpleTrasitionListener发现你已经设置过了TrasitionListener");
+                this.trasitionListeners.add(trasitionListener);
             }
-            this.trasitionListener = new TrasitionListenerConvert(simpleTrasitionListener);
+            return this;
+        }
+
+        /**
+         * 简化版 滚动过程中view的变换监听接口。实际会被转换为{@link TrasitionListener}
+         *
+         * @param simpleTrasitionListener if null,remove current
+         * @return
+         */
+        public Builder setSimpleTrasitionListener(SimpleTrasitionListener simpleTrasitionListener) {
+            this.trasitionListeners.remove(defaultTrasitionListener);
+            defaultTrasitionListener = null;
+            if (simpleTrasitionListener != null) {
+                defaultTrasitionListener = new TrasitionListenerConvert(simpleTrasitionListener);
+                this.trasitionListeners.add(defaultTrasitionListener);
+            }
             return this;
         }
 

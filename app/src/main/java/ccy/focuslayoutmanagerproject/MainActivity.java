@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
     int colors[] = {0xffff0000, 0xff00ff00, 0xff0000ff, 0xffffff00, 0xff00ffff, 0xffff00ff,
             0xffd0d0d0, 0xff000000, 0xffe04900, 0xff900909};
     int horRes[] = {R.drawable.h5, R.drawable.h6, R.drawable.h7, R.drawable.h1, R.drawable.h2,
-            R.drawable.h3, R.drawable.h4, R.drawable.h5, R.drawable.h6, R.drawable.h7,R.drawable.h5, R.drawable.h6, R.drawable.h7, R.drawable.h1, R.drawable.h2,
+            R.drawable.h3, R.drawable.h4, R.drawable.h5, R.drawable.h6, R.drawable.h7,
+            R.drawable.h5, R.drawable.h6, R.drawable.h7, R.drawable.h1, R.drawable.h2,
             R.drawable.h3, R.drawable.h4, R.drawable.h5, R.drawable.h6, R.drawable.h7};
     int verRes[] = {R.drawable.v5, R.drawable.v6, R.drawable.v7, R.drawable.v1, R.drawable.v2,
             R.drawable.v3, R.drawable.v4, R.drawable.v5, R.drawable.v6, R.drawable.v7};
@@ -165,7 +166,8 @@ public class MainActivity extends AppCompatActivity {
         focusLayoutManager.setMaxLayerCount(3);
         focusLayoutManager.setNormalViewGap(dp2px(this, 4));
         focusLayoutManager.setLayerPadding(dp2px(this, 50));
-        focusLayoutManager.setTrasitionListener(new FocusLayoutManager.TrasitionListener() {
+        focusLayoutManager.removeTrasitionlistener(null);
+        focusLayoutManager.addTrasitionListener(new FocusLayoutManager.TrasitionListener() {
             @Override
             public void handleLayerView(FocusLayoutManager focusLayoutManager, View view,
                                         int viewLayer, int maxLayerCount, int position,
