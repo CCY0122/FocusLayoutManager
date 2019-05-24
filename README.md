@@ -88,7 +88,7 @@ recyclerView.setLayoutManager(focusLayoutManager);
                         .build();
 ```
 
-#### 自定义动画/监听：
+#### 自定义动画/滚动监听：
 如果你想在滑动时不仅仅改变item的大小、透明度，你有更多的想法，可以监听TrasitionListener,该监听暴露了很多关键布局数据，
 ```java
             ......
