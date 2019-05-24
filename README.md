@@ -64,13 +64,58 @@ recyclerView.setLayoutManager(focusLayoutManager);
 
 #### 修改动画效果：
 ```java
-//待补充
+                new FocusLayoutManager.Builder()
+                        ......
+                        .simpleTrasitionListener(new FocusLayoutManager.SimpleTrasitionListener() {
+                             @Override
+                            public float getLayerViewMaxAlpha(int maxLayerCount) {
+                                return super.getLayerViewMaxAlpha(maxLayerCount);
+                            }
+
+                            @Override
+                            public float getLayerViewMinAlpha(int maxLayerCount) {
+                                return super.getLayerViewMinAlpha(maxLayerCount);
+                            }
+
+                            @Override
+                            public float getLayerChangeRangePercent() {
+                                return super.getLayerChangeRangePercent();
+                            }
+                            //and more
+                            
+                            //更多可重写方法和释义见接口声明
+                        })
+                        .build();
 ```
 
 #### 自定义监听：
+如果你想在滑动时不仅仅改变item的大小、透明度，你有更多的想法，可以监听TrasitionListener,该监听暴露了很多关键布局数据，
 ```java
-//待补充
+            ......
+            .trasitionListener(new FocusLayoutManager.TrasitionListener() {
+                            @Override
+                            public void handleLayerView(FocusLayoutManager focusLayoutManager,
+                                                        View view, int viewLayer,
+                                                        int maxLayerCount, int position,
+                                                        float fraction, float offset) {
+                                
+                            }
+
+                            @Override
+                            public void handleFocusingView(FocusLayoutManager focusLayoutManager,
+                                                           View view, int position,
+                                                           float fraction, float offset) {
+
+                            }
+
+                            @Override
+                            public void handleNormalView(FocusLayoutManager focusLayoutManager, View view, int position, float fraction, float offset) {
+
+                            }
+                        })
 ```
+各参数意义见接口注释。
+实际上`SimpleTrasitionListener`内部就会被转为`TrasitionListener`(SimpleTrasitionListener没有getter方法）。可参考转换类是怎么做的：`TrasitionListenerConvert`
 
 ## 源码解析
 待补充
