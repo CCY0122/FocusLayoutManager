@@ -15,7 +15,7 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -47,7 +47,7 @@ publish {
     userOrg = 'ccy01220122'
     groupId = 'com.ccy'
     artifactId = 'FocusLayoutManager'
-    publishVersion = '1.0.1'
+    publishVersion = '1.0.2'
     desc = '具有有焦点item的水平/垂直滚动RecyclerView-LayoutManager'
     website = 'https://github.com/CCY0122/FocusLayoutManager'
 }
