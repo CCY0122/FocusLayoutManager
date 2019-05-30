@@ -1,4 +1,4 @@
-[ ![Download](https://api.bintray.com/packages/ccy01220122/FocusLayoutManager/FocusLayoutManager/images/download.svg?version=1.0.1) ](https://bintray.com/ccy01220122/FocusLayoutManager/FocusLayoutManager/1.0.1/link)
+[ ![Download](https://api.bintray.com/packages/ccy01220122/FocusLayoutManager/FocusLayoutManager/images/download.svg?version=1.0.2) ](https://bintray.com/ccy01220122/FocusLayoutManager/FocusLayoutManager/1.0.2/link)
 # FocusLayoutManager
 有焦点item的水平/垂直滚动RecyclerView-LayoutManager。仿Android豆瓣书影音“推荐“频道列表布局
 
@@ -22,8 +22,8 @@
 ## 依赖
 
 ```
-api 'com.ccy:FocusLayoutManager:1.0.1'
-// （or implementation）
+implementation 'com.ccy:FocusLayoutManager:1.0.2'
+// （or api）
 ```
 
 ## 使用
