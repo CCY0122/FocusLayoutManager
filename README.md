@@ -49,7 +49,7 @@ recyclerView.setLayoutManager(focusLayoutManager);
 各属性意义见图：<br/>
 <img src="https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/detail.png" width=600 />
 <br/>
-注意：因为item在不同区域随着滑动会有不同的缩放，所以实际layerPadding、normalViewGap也是经过缩放计算后的距离。
+注意：因为item在不同区域随着滑动会有不同的缩放，所以实际layerPadding、normalViewGap会被缩放计算。
 
 #### 调整动画效果：
 ```java
@@ -109,7 +109,8 @@ recyclerView.setLayoutManager(focusLayoutManager);
 实际上`SimpleTrasitionListener`内部就会被转为`TrasitionListener`。可参考转换类是怎么做的：`TrasitionListenerConvert`
 
 ## 源码解析
-待补充
+
+[https://blog.csdn.net/ccy0122/article/details/90515386](https://blog.csdn.net/ccy0122/article/details/90515386)
 
 
 
