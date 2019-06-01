@@ -49,7 +49,7 @@ recyclerView.setLayoutManager(focusLayoutManager);
 各属性意义见图：<br/>
 <img src="https://github.com/CCY0122/FocusLayoutManager/blob/master/pic/detail.png" width=600 />
 <br/>
-注意：因为item在不同区域随着滑动会有不同的缩放，所以实际layerPadding、normalViewGap会被缩放计算。
+注意：因为item在不同区域随着滑动会有不同的缩放（受动画控制），所以实际堆叠view的间距、普通view的间距未必等于layerPadding、normalViewGap
 
 #### 调整动画效果：
 ```java
