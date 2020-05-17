@@ -112,5 +112,18 @@ recyclerView.setLayoutManager(focusLayoutManager);
 
 [https://blog.csdn.net/ccy0122/article/details/90515386](https://blog.csdn.net/ccy0122/article/details/90515386)
 
+## 阿里内推
+可帮阿里内推。将想投的阿里招聘官网职位链接+简历简介+备注“github#1”(用于让我知道你是在哪里看到我的)发我邮箱671518768@qq.com。
+
+tips:
+
+1.简历绝对真实，背调阶段查出诚信问题可能会被阿里拉黑。
+
+2.并不是来者不拒，我会做一定把关
+
+3.不建议硬刚，建议做过复习准备
+
+4.可能因为忙回复不及时
+
 
 
