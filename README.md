@@ -112,12 +112,6 @@ recyclerView.setLayoutManager(focusLayoutManager);
 
 [https://blog.csdn.net/ccy0122/article/details/90515386](https://blog.csdn.net/ccy0122/article/details/90515386)
 
-## 阿里内推
-可帮阿里内推。将想投的阿里招聘官网职位链接+简历简介发我邮箱671518768@qq.com。
-> 简历绝对真实，背调阶段查出诚信问题会被阿里拉黑。
-
-## 铃盛内推
-铃盛RingCentral, github955名单之一外企，work life balance，工作幸福感一级棒。厦门、杭州两地招人。有意的联系我邮箱671518768@qq.com
 
 
 
